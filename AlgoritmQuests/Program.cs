@@ -1,6 +1,6 @@
 ﻿using System;
-
-namespace quest1_1
+//quest1_1
+namespace AlgoritmQuests
 {
     class Program
     {
