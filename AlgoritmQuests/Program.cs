@@ -45,6 +45,13 @@ namespace AlgoritmQuests
                             taskNum2.ShowTask();
                             break;
                         }
+                    case 3:
+                        {
+
+                            Task3 taskNum2 = new Task3();
+                            taskNum2.ShowTask();
+                            break;
+                        }
                 }
             }
             else
