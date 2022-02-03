@@ -7,7 +7,7 @@ namespace AlgoritmQuests
     {
         static void Lessons()
         {
-            int numberLesson = 2; //кол-во опубликованных уроков
+            int numberLesson = 3; //кол-во опубликованных уроков
             string[,] ArrayLessons = new string[numberLesson+1,numberLesson+1];
             //Шапка для отбражения уроков
             ArrayLessons[0, 0] = "Номер урока";
@@ -25,7 +25,7 @@ namespace AlgoritmQuests
             {
                 Console.WriteLine(ArrayLessons[i, 0] + "       " + ArrayLessons[i, 1] +"\n");
             }
-            Console.WriteLine("Введите номер интересующего урока: ");
+            Console.WriteLine("Введите номер интересующего урока и нажмите Enter: ");
             bool successChange = int.TryParse(Console.ReadLine(), out int N);
             if (successChange & (N > 0))
             {
