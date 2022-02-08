@@ -16,7 +16,12 @@ namespace AlgoritmQuests
         {
             Value = value;
         }
-        public void AddNode(int value) //добавляет элемент в конец списка
+
+        /// <summary>
+        /// добавляет элемент в конец списка
+        /// </summary>
+        /// <param name="value"></param>
+        public void AddNode(int value) //
         {
             var node = this; //получаю доступ данным startNode
 
@@ -28,9 +33,15 @@ namespace AlgoritmQuests
             var newNode = new NodeTwoLinks(value); //создаю новый Node со значением value
             node.NextNode = newNode; //записываю ссылку на текущую запись в последний найденный node
             newNode.PrevNode = node; // записываю в новый newNode ссылку на предыдущий
+            // запись в newNode.NextNode не производится т.к. запись в конец списка
         }
 
-        public void AddNodeAfter(NodeTwoLinks node, int value) //операция вставки между двумя Node (двухсвязанные списки)
+        /// <summary>
+        /// операция вставки между двумя Node (двухсвязанные списки)
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="value"></param>
+        public void AddNodeAfter(NodeTwoLinks node, int value) //
         {
             var newNode = new NodeTwoLinks (Value = value); //создаем новый node со значение value
             var nextItem = node.NextNode; // сохраняем ссылку из пердыдущей записи на слудующую
@@ -41,43 +52,142 @@ namespace AlgoritmQuests
             newNode.PrevNode = node; // записываем ссылку на предыдущую Node
         }
 
+        /// <summary>
+        /// ищет элемент по его значению
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public NodeTwoLinks FindNode(int searchValue)
         {
-            throw new NotImplementedException();
+            var node = this; //получаю доступ данным 
+
+            do //ищу запись в прямом направлении
+            {
+                if (node.Value == searchValue) break;
+                node = node.NextNode;
+
+            }
+            while (node.NextNode != null);
+             do   //ищу запись в обратном направлении
+            {
+                if (node.Value == searchValue) break;
+                node = node.PrevNode;
+            }
+            while (node.PrevNode != null);
+             return node;
         }
         /// <summary>
         /// Возвращает кол-во элементов в массиве
         /// </summary>
-        /// <param name="startNode"></param>
-        /// <returns></returns>
+
         public int GetCount()
         {
             var node = this;
             //var node = startNode; //получаю доступ данным startNode
             int i = 1;
-            int j = 0;
-            while (node.NextNode != null) //считаю записи
+            while (node.PrevNode != null) //перехожу к 0 записи
+            {
+                node = node.PrevNode;
+            }
+            while (node.NextNode != null) //считаю записи в прямом направлении
             {
                 node = node.NextNode;
                 i++;
             }
-            node = this;
-            while (node.PrevNode != null) //считаю записи
-            {
-                node = node.PrevNode;
-                j++;
-            }
-            return i +j;
+            return i;
         }
-
+        /// <summary>
+        /// удаляет элемент по порядковому номеру
+        /// </summary>
+        /// <param name="index"></param>
         public void RemoveNode(int index)
         {
-            throw new NotImplementedException();
+            var removeNode = this;
+            int count = removeNode.GetCount();
+            if (count > index)
+            {
+                while (removeNode.PrevNode != null) //перехожу к 0 записи
+                {
+                    removeNode = removeNode.PrevNode;
+                }
+                int i = 0;
+                while (removeNode.NextNode != null && (i != index)) //считаю записи
+                {
+                    removeNode = removeNode.NextNode;
+                    i++;
+                }
+                var nextItem = removeNode.NextNode; // сохраняем ссылку на следующую запись
+                var prevItem = removeNode.PrevNode; // сохраняем ссылку на предудующую запись
+                prevItem.NextNode = removeNode.NextNode; //заменяю ссылки
+                nextItem.PrevNode = removeNode.PrevNode;
+            }
+            else Console.WriteLine("Элемента с таким индексом не существует");
+        }
+        /// <summary>
+        /// удаляет указанный элемент
+        /// </summary>
+        public void RemoveNode()
+        {
+            var removeNode = this;
+            if (removeNode.NextNode != null)
+            {
+                var nextItem = removeNode.NextNode; // сохраняем ссылку на следующую запись
+                nextItem.PrevNode = removeNode.PrevNode;
+            }
+            else //если удаляем последний элемент списка
+            {
+                var prevItem = removeNode.PrevNode; // сохраняем ссылку на предудующую запись
+                prevItem.NextNode = null; //заменяю ссылки
+            }
+            if (removeNode.PrevNode != null)
+            {
+                var prevItem = removeNode.PrevNode; // сохраняем ссылку на предудующую запись
+                prevItem.NextNode = removeNode.NextNode; //заменяю ссылки
+            }
+            else //если удаляем первый элемент в списке
+            {
+                var nextItem = removeNode.NextNode; // сохраняем ссылку на следующую запись
+                nextItem.PrevNode = null;
+            }
+        }
+        public void ShowNodes()
+        {
+            NodeTwoLinks node = this;
+            int count = node.GetCount();
+
+            while (node.PrevNode != null) //перехожу к 0 записи
+            {
+                node = node.PrevNode;
+            }
+            Console.WriteLine("Значения списка");
+            do 
+            {
+                Console.Write(node.Value + "\t");
+                node = node.NextNode;
+            }
+            while (node.NextNode != null);
+            Console.Write(node.Value + "\t");
+             
+            Console.WriteLine("Кол-во элементов в списке - " + count);
         }
 
-        public void RemoveNode(NodeTwoLinks node)
+        public void ShowNum()
         {
-            throw new NotImplementedException();
+            var node = this;
+            Console.Write("Номерация списка значений\n");
+            while (node.PrevNode != null) //перехожу к 0 записи
+            {
+                node = node.PrevNode;
+            }
+            Console.Write("№1 ");
+            int i = 1;
+            while (node.NextNode != null) //считаю записи
+            {
+                node = node.NextNode;
+                i++;
+                Console.Write("\t" + i +"  ");
+            }
+            Console.WriteLine("\n");
         }
     }
 }

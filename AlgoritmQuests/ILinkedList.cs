@@ -15,7 +15,7 @@ namespace AlgoritmQuests
         void AddNode(int value);  // добавляет новый элемент списка в конец списка
         void AddNodeAfter(NodeTwoLinks node, int value); // добавляет новый элемент списка после определённого элемента
         void RemoveNode(int index); // удаляет элемент по порядковому номеру
-        void RemoveNode(NodeTwoLinks node); // удаляет указанный элемент
+        void RemoveNode(); // удаляет указанный элемент
         NodeTwoLinks FindNode(int searchValue); // ищет элемент по его значению
     }
 }
