@@ -49,7 +49,7 @@ namespace AlgoritmQuests
                         {
 
                             Task3 taskNum2 = new Task3();
-                            taskNum2.ShowTask();
+                            taskNum2.StartTask();
                             break;
                         }
                 }

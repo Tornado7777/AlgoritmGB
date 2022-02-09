@@ -15,7 +15,7 @@ namespace AlgoritmQuests
         
         public void ShowTask()
         {
-            int numberTask = 2; //кол-во заданий + 1 для шапки
+            int numberTask = 1; //кол-во заданий + 1 для шапки
             string[,] ArrayLessons = new string[numberTask + 1, numberTask + 1];
             //Шапка для отбражения уроков
             ArrayLessons[0, 0] = "Номер задания";
