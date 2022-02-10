@@ -43,7 +43,7 @@ namespace AlgoritmQuests
         /// <param name="value"></param>
         public void AddNodeAfter(NodeTwoLinks node, int value) //
         {
-            var newNode = new NodeTwoLinks (Value = value); //создаем новый node со значение value
+            var newNode = new NodeTwoLinks(Value = value); //создаем новый node со значение value
             var nextItem = node.NextNode; // сохраняем ссылку из пердыдущей записи на слудующую
             node.NextNode = newNode; // записываем в значение предыдущей node ссылку на текущую
             var nextNode = node.NextNode; // получаю доступ к следующей Node 
@@ -68,13 +68,13 @@ namespace AlgoritmQuests
 
             }
             while (node.NextNode != null);
-             do   //ищу запись в обратном направлении
+            do   //ищу запись в обратном направлении
             {
                 if (node.Value == searchValue) break;
                 node = node.PrevNode;
             }
             while (node.PrevNode != null);
-             return node;
+            return node;
         }
         /// <summary>
         /// Возвращает кол-во элементов в массиве
@@ -160,14 +160,14 @@ namespace AlgoritmQuests
                 node = node.PrevNode;
             }
             Console.WriteLine("Значения списка");
-            do 
+            do
             {
                 Console.Write(node.Value + "\t");
                 node = node.NextNode;
             }
             while (node.NextNode != null);
             Console.Write(node.Value + "\t");
-             
+
             Console.WriteLine("Кол-во элементов в списке - " + count);
         }
 
@@ -185,7 +185,7 @@ namespace AlgoritmQuests
             {
                 node = node.NextNode;
                 i++;
-                Console.Write("\t" + i +"  ");
+                Console.Write("\t" + i + "  ");
             }
             Console.WriteLine("\n");
         }
