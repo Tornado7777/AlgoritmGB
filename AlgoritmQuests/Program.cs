@@ -7,56 +7,49 @@ namespace AlgoritmQuests
     {
         static void Lessons()
         {
-            int numberLesson = 3; //кол-во опубликованных уроков
-            string[,] ArrayLessons = new string[numberLesson+1,numberLesson+1];
-            //Шапка для отбражения уроков
-            ArrayLessons[0, 0] = "Номер урока";
-            ArrayLessons[0, 1] = "Краткое содержание";
+            Tasks lessons = new Tasks(1);
+            //изменение шапки для отбражения уроков
+            lessons = lessons.ChangeTask(0, "Номер урока", "Краткое содержание");
             //Урок 1
-            ArrayLessons[1, 0] = "Урок №1";
-            ArrayLessons[1, 1] = "Блок-схемы, асимптотическая сложность, рекурсия.";
+            lessons = lessons.AddTask("Урок №1", "Блок-схемы, асимптотическая сложность, рекурсия.");
             //Урок 2
-            ArrayLessons[2, 0] = "Урок №2";
-            ArrayLessons[2, 1] = "Массив, список, поиск.";
+            lessons = lessons.AddTask("Урок №2", "Массив, список, поиск.");
             //Урок 3
-            ArrayLessons[3, 0] = "Урок №3";
-            ArrayLessons[3, 1] = "Класс, структура и дистанция.";
-            for (int i=0; i<=numberLesson; i++)
-            {
-                Console.WriteLine(ArrayLessons[i, 0] + "       " + ArrayLessons[i, 1] +"\n");
-            }
-            Console.WriteLine("Введите номер интересующего урока и нажмите Enter: ");
-            bool successChange = int.TryParse(Console.ReadLine(), out int N);
-            if (successChange & (N > 0))
-            {
-               switch(N)
-                {
-                    case 1 :
-                        {
-                            
-                            Task1 taskNum1 = new Task1();
-                            taskNum1.ShowTask();
-                            break;
-                        }
-                    case 2:
-                        {
+            lessons = lessons.AddTask("Урок №3", "Класс, структура и дистанция.");
+            //Урок 4
+            lessons = lessons.AddTask("Урок №4", "Деревья, хэш-таблицы.");
+            int numLesson = lessons.ShowTask(); //вывожу на экран уроки и получаю номер выбранного урока
 
-                            Task2 taskNum2 = new Task2();
-                            taskNum2.ShowTask();
-                            break;
-                        }
-                    case 3:
-                        {
-
-                            Task3 taskNum2 = new Task3();
-                            taskNum2.StartTask();
-                            break;
-                        }
-                }
-            }
-            else
+            switch (numLesson)
             {
-                Console.WriteLine("Урок с таким номером не найден");
+                case 1:
+                    {
+
+                        Task1 lesson1 = new Task1();
+                        lesson1.ShowTask();
+                        break;
+                    }
+                case 2:
+                    {
+
+                        Task2 lesson2 = new Task2();
+                        lesson2.ShowTask();
+                        break;
+                    }
+                case 3:
+                    {
+
+                        Task3 lesson3 = new Task3();
+                        lesson3.StartTask();
+                        break;
+                    }
+                case 4:
+                    {
+
+                        Task4 lesson4 = new Task4();
+                        lesson4.StartTask();
+                        break;
+                    }
             }
 
         }

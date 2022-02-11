@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AlgoritmQuests
 {
-    class Tasks 
+    class Tasks
     {
         public int NumberTasks { get; set; }
-        public string[,] ArrayLessons { get ; set; }
+        public string[,] ArrayLessons { get; set; }
 
         /// <summary>
         /// Метод показа содержания заданий
@@ -18,8 +18,8 @@ namespace AlgoritmQuests
         public Tasks(int numberTasks)
         {
             NumberTasks = numberTasks;
-            ArrayLessons = new string[numberTasks,2];
-            ArrayLessons[0, 0] = "Номер задания";
+            ArrayLessons = new string[numberTasks, 2];
+            ArrayLessons[0, 0] = "Номер задания\n";
             ArrayLessons[0, 1] = "Содержание";
 
         }
@@ -28,9 +28,9 @@ namespace AlgoritmQuests
             Tasks task = this;
             int N = 0; //ввыеденый номер задачи
             Console.Clear();
-            for (int i = 0; i < (task.ArrayLessons.Length/2); i++)
+            for (int i = 0; i < (task.ArrayLessons.Length / 2); i++)
             {
-                Console.WriteLine(ArrayLessons[i, 0]);
+                Console.WriteLine("\n" + ArrayLessons[i, 0]);
                 Console.WriteLine(ArrayLessons[i, 1]);
             }
             Console.WriteLine("\nВведите номер интересующего задания и нажмите Enter: ");
@@ -51,11 +51,11 @@ namespace AlgoritmQuests
         /// <param name="numTask">Например: "Здание №1"</param>
         /// <param name="Description">Описание задания</param>
         /// <returns></returns>
-        public Tasks AddTask(string nameTask , string description)
+        public Tasks AddTask(string nameTask, string description)
         {
             var currentTask = this;
             var newTasks = new Tasks(currentTask.NumberTasks + 1);
-            for (int i=1;i< currentTask.NumberTasks;i++)
+            for (int i = 1; i < currentTask.NumberTasks; i++)
             {
                 newTasks.ArrayLessons[i, 0] = currentTask.ArrayLessons[i, 0];
                 newTasks.ArrayLessons[i, 1] = currentTask.ArrayLessons[i, 1];
@@ -65,6 +65,13 @@ namespace AlgoritmQuests
 
             return newTasks;
         }
-       
+
+        public Tasks ChangeTask(int numTask, string nameTask, string description)
+        {
+            var currentTask = this;
+            currentTask.ArrayLessons[numTask, 0] = nameTask;
+            currentTask.ArrayLessons[numTask, 0] = description;
+            return currentTask;
+        }
     }
 }
