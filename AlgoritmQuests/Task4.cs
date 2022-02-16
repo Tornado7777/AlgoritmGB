@@ -17,14 +17,14 @@ namespace AlgoritmQuests
             public TreeNode RightChild { get; set; }
 
 
-            List<int> listValue = new List<int>(0); //создаю массив значение, для выбора значение поиска
+            //List<int> listValue = new List<int>(0); //создаю массив значение, для выбора значение поиска
             /// <summary>
             /// Вставляет запись между текущей записью и его левой веткой
             /// </summary>
             public void InsertNodeLeft(int value)
             {
                 var newNodeLeft = new TreeNode();
-                if(this.LeftChild != null)this.LeftChild.Parrent = newNodeLeft;
+                if (this.LeftChild != null) this.LeftChild.Parrent = newNodeLeft;
                 newNodeLeft.LeftChild = this.LeftChild;
                 this.LeftChild = newNodeLeft;
                 newNodeLeft.Parrent = this;
@@ -128,7 +128,7 @@ namespace AlgoritmQuests
             /// </summary>
             /// <param name="value"></param>
             /// <returns></returns>
-            public TreeNode FindNodeDFS(int value, int level = 1, TreeNode findNode = null) 
+            public TreeNode FindNodeDFS(int value, int level = 1, TreeNode findNode = null)
             {
                 Console.Write(this.Value + "=>");
                 if (this.Value == value)
@@ -152,13 +152,17 @@ namespace AlgoritmQuests
             /// </summary>
             /// <param name="value">значение для поиска</param>
             /// <returns></returns>
-            public TreeNode FindNodeBFS(int value, List<TreeNode> listLevel = null, int level = 1, TreeNode findNode = null)
+            public TreeNode FindNodeBFS(int value)
             {
+                int level = 1;
+                TreeNode findNode = null;
+                List<TreeNode> listLevel = new List<TreeNode>(0);
                 List<TreeNode> listNextLevel = new List<TreeNode>(0);
-                if (level == 1 && listLevel == null) //работаю с первым элементом в дереве
+                if (level == 1) //работаю с первым элементом в дереве
                 {
                     TreeNode currentNode = this.GetFirstNode();
                     Console.WriteLine("\n");
+                    Console.WriteLine("Осуществялем поиск значения " + value + " методом BFS.\n");
                     if (currentNode.Value == value)
                     {
                         findNode = currentNode;
@@ -166,40 +170,36 @@ namespace AlgoritmQuests
                     }
                     else
                     {
-                        Console.WriteLine("Осуществялем поиск значения " + value + " методом BFS.\n");
                         Console.Write(currentNode.Value + "=>");
-                        listNextLevel.Add(currentNode.LeftChild);
-                        listNextLevel.Add(currentNode.RightChild);
-                        findNode = FindNodeBFS(value, listNextLevel, level + 1, findNode);
+                        listLevel.Add(currentNode.LeftChild);
+                        listLevel.Add(currentNode.RightChild);
+                        level++;
                     }
                 }
-                else
+                //перебераю массив
+                while (listLevel.Count > 0)
                 {
-                    //перебераю массив
-                    Console.WriteLine("\n");
-                    bool find = false;
+                    listNextLevel.Clear();
                     for (int i = 0; i < listLevel.Count; i++)
                     {
-                        if (listLevel[i] != null)
+                        if (listLevel[i].Value == value)
                         {
-                            if (listLevel[i].Value == value)
-                            {
-                                findNode = listLevel[i];
-                                WriteFinde(listLevel[i], level);
-                                find = true;
-                                i = listLevel.Count;
-                                break;
-                            }
-                            else 
-                            {
-                                Console.Write(listLevel[i].Value + "=>");
-                                listNextLevel.Add(listLevel[i].LeftChild);
-                                listNextLevel.Add(listLevel[i].RightChild);
-                            }
-                            
+                            findNode = listLevel[i];
+                            WriteFinde(listLevel[i], level);
+                            listLevel.Clear();
+                            listNextLevel.Clear();
+                            break;
+                        }
+                        else
+                        {
+                            Console.Write(listLevel[i].Value + "=>");
+                            if (listLevel[i].LeftChild != null) listNextLevel.Add(listLevel[i].LeftChild);
+                            if (listLevel[i].RightChild != null) listNextLevel.Add(listLevel[i].RightChild);
                         }
                     }
-                    if (find == false && listLevel.Count>0) findNode = FindNodeBFS(value, listNextLevel, level + 1, findNode);
+                    listLevel.Clear();
+                    listLevel.AddRange(listNextLevel);
+                    level++;
                 }
                 return findNode;
             }
@@ -271,10 +271,9 @@ namespace AlgoritmQuests
             /// и произвольными значениями типа int
             /// </summary>
             /// <param name="n">кол-во элементов</param>
-            
-            public List<int> GreatTree(int n)
+
+            public void GreatTree(int n)
             {
-                listValue.Clear();
                 if (n == 0)
                     Console.WriteLine("Ничего не созданно");
                 else
@@ -282,12 +281,10 @@ namespace AlgoritmQuests
                     var nl = n / 2;
                     var nr = n - nl - 1;
                     this.Value = new Random().Next(1, 999);
-                    listValue.Add(this.Value);
                     this.LeftChild = GreatTreeParrent(nl, this);
                     this.RightChild = GreatTreeParrent(nr, this);
 
                 }
-                return listValue;
             }
             //создает элементы с родителем
             private TreeNode GreatTreeParrent(int n, TreeNode parrent)
@@ -301,7 +298,6 @@ namespace AlgoritmQuests
                     var nr = n - nl - 1;
                     newNode.Value = new Random().Next(1, 999);
                     newNode.Parrent = parrent;
-                    listValue.Add(newNode.Value);
                     newNode.LeftChild = GreatTreeParrent(nl, newNode);
                     newNode.RightChild = GreatTreeParrent(nr, newNode);
 
@@ -358,23 +354,26 @@ namespace AlgoritmQuests
         public void TaskLogic()
         {
             int sizeTree = 20; //обозначение кол-ва элементов в дереве
-            TreeNode taskLesson4 = new TreeNode(); 
-            List<int> listValue = taskLesson4.GreatTree(sizeTree); //создаю дерево
-
+            TreeNode taskLesson4 = new TreeNode();
+            taskLesson4.GreatTree(sizeTree);
+            List<int> listValue = ValueTreeNode(taskLesson4); ; //создаю дерево
             taskLesson4.ShowTree(); //показываю дерево
             ShowListValue(listValue);
-            
+
 
             //демонстрация метода поиска DFS
             int rnd = new Random().Next(0, listValue.Count);
             Console.WriteLine("\n");
             Console.WriteLine("Поиск значения " + listValue[rnd] + " по методу DFS:\n");
             TreeNode taskFind = taskLesson4.FindNodeDFS(listValue[rnd]);
-            if (taskFind != null) Console.WriteLine("\nЗначение найденой записи: " + taskFind.Value + ".\n"); else
+            if (taskFind != null) Console.WriteLine("\nЗначение найденой записи: " + taskFind.Value + ".\n");
+            else
                 Console.WriteLine("Значение не найдено.");
+
             //удалениe записи
             Console.WriteLine("Удаление найденной записи из дерева с потерей всех связей.");
             taskFind.DeleteNode();
+
             listValue.Clear();
             listValue = ValueTreeNode(taskLesson4);
             Console.WriteLine("Нажмите клавишу Enter для продолжения.");
@@ -385,12 +384,14 @@ namespace AlgoritmQuests
             //демонстрация метода поиска BFS
             rnd = new Random().Next(0, listValue.Count);
             taskFind = taskLesson4.FindNodeBFS(listValue[rnd]);
-            if (taskFind != null) Console.WriteLine("Значение найденой записи: " + taskFind.Value + ".\n"); else
+            if (taskFind != null) Console.WriteLine("Значение найденой записи: " + taskFind.Value + ".\n");
+            else
                 Console.WriteLine("Значение не найдено.");
             Console.WriteLine("\n");
-            //
+            
             Console.WriteLine("Удаление найденной записи из дерева c сохранением ветвей слева.");
             taskFind.DeleteLeftNode();
+
             listValue.Clear();
             listValue = ValueTreeNode(taskLesson4);
             Console.WriteLine("Нажмите клавишу Enter для продолжения.");
@@ -399,8 +400,10 @@ namespace AlgoritmQuests
             ShowListValue(listValue);
 
             //Обновление кол-во элементов и значения в массиве
+            taskLesson4.GreatTree(sizeTree);
+
             listValue.Clear();
-            listValue = taskLesson4.GreatTree(sizeTree);
+            listValue = ValueTreeNode(taskLesson4);
             Console.WriteLine("Нажмите клавишу Enter для продолжения.");
             Console.ReadLine();
             taskLesson4.ShowTree();
@@ -415,6 +418,7 @@ namespace AlgoritmQuests
             Console.WriteLine("\n");
             Console.WriteLine("Удаление найденной записи из дерева c сохранением ветвей справа.");
             taskFind.DeleteRightNode();
+
             listValue.Clear();
             listValue = ValueTreeNode(taskLesson4);
             Console.WriteLine("Нажмите клавишу Enter для продолжения.");
@@ -481,8 +485,8 @@ namespace AlgoritmQuests
             for (int i = 0; i < listValue.Count; i++)
             {
                 Console.Write(listValue[i] + "\t");
-                if (i%10 == 0) Console.WriteLine("\n");
-                
+                if (i+1 % 10 == 0) Console.WriteLine("\n");
+
             }
         }
     }

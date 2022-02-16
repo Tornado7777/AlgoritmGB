@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlgoritmQuests
 {
-    class Tasks
+    class Tasks : ILessons
     {
         public int NumberTasks { get; set; }
         public string[,] ArrayLessons { get; set; }
@@ -72,6 +72,16 @@ namespace AlgoritmQuests
             currentTask.ArrayLessons[numTask, 0] = nameTask;
             currentTask.ArrayLessons[numTask, 0] = description;
             return currentTask;
+        }
+
+        public void StartTask()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TaskLogic()
+        {
+            throw new NotImplementedException();
         }
     }
 }
