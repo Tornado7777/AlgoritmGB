@@ -9,13 +9,13 @@ namespace TaskLibrary
         public string NameTask { get; set; }
         public string Description { get; set; }
 
-        public class PointClassDouble
+        class PointClassDouble
         {
             public double X;
             public double Y;
         }
 
-        public struct PointStructDouble
+        struct PointStructDouble
         {
             public double X;
             public double Y;
