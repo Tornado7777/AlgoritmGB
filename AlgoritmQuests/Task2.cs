@@ -6,81 +6,52 @@ using System.Threading.Tasks;
 
 namespace AlgoritmQuests
 {
-    class Task2
+    class Task2 : ILessons
     {
+        public string NameTask { get; set; }
+        public string Description  { get; set; }
+
         //Выполняем только задание 1 - реализация типа двусвязного списка. 
         //И контрольный пример, демонстрирующий использование методов.
         //Интерактивный режим (взаимодействие с пользователем) не требуется.
-        
-        
-        public void ShowTask()
+
+        public void StartTask()
         {
-            int numberTask = 1; //кол-во заданий + 1 для шапки
-            string[,] ArrayLessons = new string[numberTask + 1, numberTask + 1];
-            //Шапка для отбражения уроков
-            ArrayLessons[0, 0] = "Номер задания";
-            ArrayLessons[0, 1] = "Содержание";
-            //Урок 1
-            ArrayLessons[1, 0] = "Здание №1";
-            ArrayLessons[1, 1] = "Требуется реализовать класс двусвязного списка и операции вставки, \nудаления и поиска элемента в нём в соответствии с интерфейсом.";
-           
+            NameTask = "\nЗадание №1:\n";
+            Description = "Требуется реализовать класс двусвязного списка и операции вставки, \nудаления и поиска элемента в нём в соответствии с интерфейсом.";
             Console.Clear(); //очищаем консоль
-
-            for (int i = 0; i <= numberTask; i++)
-            {
-                Console.WriteLine(ArrayLessons[i, 0] + "\n");
-                Console.WriteLine(ArrayLessons[i, 1] + "\n");
-            }
-            Console.WriteLine("Введите номер интересующего задания и нажмите Enter: ");
-            bool successChange = int.TryParse(Console.ReadLine(), out int N);
-            if (successChange & (N > 0))
-            {
-                switch (N)
-                {
-                    case 1:
-                        {
-
-                            Task21();
-                            break;
-                        }
-                    
-                }
-            }
-            else
-            {
-                Console.WriteLine("Задания с таким номером не найден");
-            }
+            ShowTask();
+            TaskLogic();
         }
 
-        // функция для выполнения задания 1 урока 2 
-        static void Task21()
+        public void TaskLogic()
         {
             int countNewNode = 10; // указываю кол-во элементов в массиве
-            var masNode = new NodeTwoLinks [countNewNode]; //создаю массив Node
+            var masNode = new NodeTwoLinks[countNewNode]; //создаю массив Node
             Random rnd = new Random();                   //Создание объекта для генерации чисел
 
-            for (int i = 0; i <countNewNode;i++)
+            for (int i = 0; i < countNewNode; i++)
             {
-                masNode[i] = new NodeTwoLinks(rnd.Next(0,1000));//создаю i-тый элемент массива с рандомным значением Value 
+                masNode[i] = new NodeTwoLinks(rnd.Next(0, 1000));//создаю i-тый элемент массива с рандомным значением Value 
                 if (i > 0)
                 {
-                   
-                    masNode[i].PrevNode = masNode[i-1]; 
+
+                    masNode[i].PrevNode = masNode[i - 1];
                     masNode[i - 1].NextNode = masNode[i];
                 }
 
             }
 
-            
+
             //
-            
+
             masNode[4].ShowNodes();
             masNode = overWritingMassiv(masNode, masNode[0].GetCount());
 
             //проверка удаления
-            int numDel = rnd.Next(1,countNewNode-1);
+            int numDel = rnd.Next(1, countNewNode - 1);
             masNode[numDel].RemoveNode();
-            Console.WriteLine("\n Удаляем элемент под номером " + (numDel+1) + " со значением " + masNode[numDel].Value+ " .");
+            Console.WriteLine("\n Удаляем элемент под номером " + (numDel + 1) + " со значением " + masNode[numDel].Value + " .");
             Console.WriteLine(" Поиск удаляемого элемент происходит по значению. ");
             masNode[numDel].ShowNodes();
             masNode = overWritingMassiv(masNode, masNode[0].GetCount());
@@ -103,8 +74,8 @@ namespace AlgoritmQuests
             //добавление новой записи после элемента
             newValue = rnd.Next(0, 1000);
             int numNodeAfter = rnd.Next(1, countNewNode - 1);
-            Console.WriteLine("\n \n Добавляю новый элемент после " + (numNodeAfter+1) + " элемента.");
-            masNode[0].AddNodeAfter(masNode[numNodeAfter],newValue);
+            Console.WriteLine("\n \n Добавляю новый элемент после " + (numNodeAfter + 1) + " элемента.");
+            masNode[0].AddNodeAfter(masNode[numNodeAfter], newValue);
             masNode[0].ShowNodes();
             masNode = overWritingMassiv(masNode, masNode[0].GetCount());
 
@@ -115,8 +86,16 @@ namespace AlgoritmQuests
             var findNodePrev = findNode.PrevNode;
             var findNodeNext = findNode.NextNode;
             Console.WriteLine("Пред\tТек\tПосле");
-            Console.WriteLine(findNodePrev.Value + "\t"+findNode.Value + "\t" + findNodeNext.Value);
+            if (findNodePrev == null) Console.WriteLine(findNode.Value + "\t" + findNodeNext.Value);
+            else
+            {
+                if (findNodeNext == null) Console.WriteLine(findNodePrev.Value + "\t" + findNode.Value);
+                else Console.WriteLine(findNodePrev.Value + "\t" + findNode.Value + "\t" + findNodeNext.Value);
+            }
+           
         }
+
+       
         /// <summary>
         /// Перезапись значений массива (нужна доработка, в случае удаления 0 элемента массива)
         /// </summary>
@@ -156,6 +135,14 @@ namespace AlgoritmQuests
             }
             Console.WriteLine("\n");
             return masNode;
+        }
+
+        public void ShowTask()
+        {
+            Console.WriteLine(NameTask);
+            Console.WriteLine(Description);
+            Console.WriteLine("Нажмите клавишу Enter для продолжения.");
+            Console.ReadLine();
         }
     }
 }

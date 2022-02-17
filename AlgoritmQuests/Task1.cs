@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace AlgoritmQuests
 {
-    class Task1
+    class Task1 : ILessons
     {
+        public string NameTask { get; set; }
+        public string Description { get; set; }
+
         //TestCase для задания 1
         public class TestCase
         {
@@ -16,72 +19,6 @@ namespace AlgoritmQuests
             public Exception ExpectedException { get; set; }
         }
 
-        public void ShowTask()
-        {
-           
-            int numberTask = 4; //кол-во заданий + 1 для шапки
-            string[,] ArrayLessons = new string[numberTask + 1, numberTask + 1];
-            //Шапка для отбражения уроков
-            ArrayLessons[0, 0] = "Номер задания";
-            ArrayLessons[0, 1] = "Содержание";
-            //Урок 1
-            ArrayLessons[1, 0] = "Здание №1";
-            ArrayLessons[1, 1] = "Требуется реализовать на C# функцию согласно блок-схеме. \n Блок-схема описывает алгоритм проверки, простое число или нет.";
-            //Урок 2
-            ArrayLessons[2, 0] = "Задание №2";
-            ArrayLessons[2, 1] = "Вычислите асимптотическую сложность функции из примера ниже. ";
-            //Урок 31
-            ArrayLessons[3, 0] = "Задание №31";
-            ArrayLessons[3, 1] = "Реализовать функцию вычисления числа Фибоначи \n рекурсивную версию. ";
-            //Урок 32
-            ArrayLessons[4, 0] = "Задание №32";
-            ArrayLessons[4, 1] = "Реализовать функцию вычисления числа Фибоначи \n версию без рекурсии (через цикл).";
-
-            Console.Clear(); //очищаем консоль
-
-            for (int i = 0; i <= numberTask; i++)
-            {
-                Console.WriteLine(ArrayLessons[i, 0] + "\n");
-                Console.WriteLine(ArrayLessons[i, 1] + "\n");
-            }
-            Console.WriteLine("Введите номер интересующего задания и нажмите Enter: ");
-            bool successChange = int.TryParse(Console.ReadLine(), out int N);
-            if (successChange & (N > 0))
-            {
-                switch (N)
-                {
-                    case 1:
-                        {
-
-                            Task11();
-                            break;
-                        }
-                    case 2:
-                        {
-
-                            Task12();
-                            break;
-                        }
-                    case 31:
-                        {
-
-                            Task1_31();
-                            break;
-                        }
-                    case 32:
-                        {
-
-                            Task1_32();
-                            break;
-                        }
-                }
-            }
-            else
-            {
-                Console.WriteLine("Задания с таким номером не найден");
-            }
-
-        }
 
         static void Task11()
         {
@@ -306,6 +243,83 @@ namespace AlgoritmQuests
             }
 
             return fibonachiN;
+        }
+
+        public void StartTask()
+        {
+            NameTask = "\nЗадание №1:\n";
+            Description = "Требуется реализовать на C# функцию согласно блок-схеме. \n Блок-схема описывает алгоритм проверки, простое число или нет.";
+            int numberTask = 4; //кол-во заданий + 1 для шапки
+            string[,] ArrayLessons = new string[numberTask + 1, numberTask + 1];
+            //Шапка для отбражения уроков
+            ArrayLessons[0, 0] = "Номер задания";
+            ArrayLessons[0, 1] = "Содержание";
+            //Урок 1
+            ArrayLessons[1, 0] = "Здание №1";
+            ArrayLessons[1, 1] = "Требуется реализовать на C# функцию согласно блок-схеме. \n Блок-схема описывает алгоритм проверки, простое число или нет.";
+            //Урок 2
+            ArrayLessons[2, 0] = "Задание №2";
+            ArrayLessons[2, 1] = "Вычислите асимптотическую сложность функции из примера ниже. ";
+            //Урок 31
+            ArrayLessons[3, 0] = "Задание №31";
+            ArrayLessons[3, 1] = "Реализовать функцию вычисления числа Фибоначи \n рекурсивную версию. ";
+            //Урок 32
+            ArrayLessons[4, 0] = "Задание №32";
+            ArrayLessons[4, 1] = "Реализовать функцию вычисления числа Фибоначи \n версию без рекурсии (через цикл).";
+
+            Console.Clear(); //очищаем консоль
+
+            for (int i = 0; i <= numberTask; i++)
+            {
+                Console.WriteLine(ArrayLessons[i, 0] + "\n");
+                Console.WriteLine(ArrayLessons[i, 1] + "\n");
+            }
+            Console.WriteLine("Введите номер интересующего задания и нажмите Enter: ");
+            bool successChange = int.TryParse(Console.ReadLine(), out int N);
+            if (successChange & (N > 0))
+            {
+                switch (N)
+                {
+                    case 1:
+                        {
+
+                            Task11();
+                            break;
+                        }
+                    case 2:
+                        {
+
+                            Task12();
+                            break;
+                        }
+                    case 31:
+                        {
+
+                            Task1_31();
+                            break;
+                        }
+                    case 32:
+                        {
+
+                            Task1_32();
+                            break;
+                        }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Задания с таким номером не найден");
+            }
+        }
+        public void ShowTask()
+        {
+            Console.WriteLine(NameTask);
+            Console.WriteLine(Description);
+        }
+
+        public void TaskLogic()
+        {
+            throw new NotImplementedException();
         }
     }
 }

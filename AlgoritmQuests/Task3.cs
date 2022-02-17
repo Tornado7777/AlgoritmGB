@@ -10,6 +10,9 @@ namespace AlgoritmQuests
 
     class Task3 :ILessons
     {
+        public string NameTask { get; set; }
+        public string Description { get; set; }
+
         public class PointClassDouble
         {
             public double X;
@@ -80,8 +83,8 @@ namespace AlgoritmQuests
 
         public void StartTask()
         {
-            Tasks task3 = new Tasks(1);
-            task3 = task3.AddTask("\nЗадание №1:\n", @"Создаем 2 типа: 
+            NameTask = "\nЗадание №1:\n";
+            Description = @"Создаем 2 типа: 
             * структура PointStructDouble с полями типа double(Double)
             * класс PointClassDouble с полями типа double(Double)
              Создаем метод, возвращающий расстояние между парой точек каждого типа.Реализуем метод, создающий 
@@ -90,18 +93,18 @@ namespace AlgoritmQuests
             Вывод может иметь вид(соответственно x, y - время выполнения, Ratio - отношение времени):
             Количество точек | PointStructDouble | PointClassDouble | Ratio
             100000 | x1 | y1 | y1 / x1
-            200000 | x2 | y2 | y2 / x2");
-            int numTask = task3.ShowTask();
-            switch (numTask)
-            {
-                case 1:
-                    {
+            200000 | x2 | y2 | y2 / x2";
 
-                        TaskLogic();
-                        break;
-                    }
-
-            }
+            ShowTask();
+            TaskLogic();
+            
+        }
+        public void ShowTask()
+        {
+            Console.WriteLine(NameTask);
+            Console.WriteLine(Description);
+            Console.WriteLine("Нажмите клавишу Enter для продолжения.");
+            Console.ReadLine();
         }
 
         public void TaskLogic()
