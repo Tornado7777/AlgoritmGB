@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AlgoritmQuests
+namespace TaskLibrary
 {
-    class Task5 : ILessons
+    public class Task5 : ILessons
     {
         public string NameTask { get; set; }
         public string Description { get; set; }
@@ -32,7 +28,7 @@ namespace AlgoritmQuests
         {
             Console.Clear();
             Task4 task4 = new Task4();
-            task4.StartTask();
+            task4.TaskLogic();
         }
     }
 }

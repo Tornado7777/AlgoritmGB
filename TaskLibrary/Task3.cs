@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace AlgoritmQuests
-{
 
-    class Task3 :ILessons
+namespace TaskLibrary
+{
+    public class Task3 : ILessons
     {
         public string NameTask { get; set; }
         public string Description { get; set; }
@@ -30,9 +26,9 @@ namespace AlgoritmQuests
         /// <param name="A">Точка1</param>
         /// <param name="B">Точка2</param>
         /// <returns></returns>
-        private double DistanceBothPointClass(PointClassDouble A , PointClassDouble B)
+        private double DistanceBothPointClass(PointClassDouble A, PointClassDouble B)
         {
-            double y = A.Y - B.Y; 
+            double y = A.Y - B.Y;
             double x = A.X - B.X;
             float d = (float)((x * x) + (y * y));
             return MathF.Sqrt(d);
@@ -58,9 +54,9 @@ namespace AlgoritmQuests
         {
             PointClassDouble[] massivPointClass = new PointClassDouble[number];
             Random rnd = new Random();
-            for (int i=0;i<number;i++)
+            for (int i = 0; i < number; i++)
             {
-                massivPointClass[i] = new PointClassDouble { X = rnd.NextDouble() , Y =rnd.NextDouble()};
+                massivPointClass[i] = new PointClassDouble { X = rnd.NextDouble(), Y = rnd.NextDouble() };
             }
             return massivPointClass;
         }
@@ -97,7 +93,7 @@ namespace AlgoritmQuests
 
             ShowTask();
             TaskLogic();
-            
+
         }
         public void ShowTask()
         {
@@ -111,9 +107,9 @@ namespace AlgoritmQuests
         {
             int number = 10000;
             Console.WriteLine("Количество точек | PointStructDouble | PointClassDouble | Ratio ticksStruct/ticksClass");
-            for (int i = 1; i<5; i++) TaskChek(number*i);
+            for (int i = 1; i < 5; i++) TaskChek(number * i);
         }
-        
+
         private void TaskChek(int number)
         {
             PointClassDouble[] massivPointClass = GeneratePointClass(number);

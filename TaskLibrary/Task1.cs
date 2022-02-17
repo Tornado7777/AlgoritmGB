@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AlgoritmQuests
+namespace TaskLibrary
 {
-    class Task1 : ILessons
+    public class Task1 : ILessons
     {
         public string NameTask { get; set; }
         public string Description { get; set; }
@@ -110,17 +106,17 @@ namespace AlgoritmQuests
 
 
         }
-        
+
         //функция выполнения задания №2 урока 1
         static void Task12()
         {
             //Вычислите асимптотическую сложность функции из примера ниже.
             string[] task12 = new string[25];
-            task12 [0] = @"Вычислите асимптотическую сложность функции из примера ниже.";
-            task12 [1] = @"public static int StrangeSum(int[] inputArray)";
-            task12 [2] = @"{";
-            task12 [3] = @"    int sum = 0; //O(1)";
-            task12 [4] = @"    for (int i = 0; i < inputArray.Length; i++) //O(N)";
+            task12[0] = @"Вычислите асимптотическую сложность функции из примера ниже.";
+            task12[1] = @"public static int StrangeSum(int[] inputArray)";
+            task12[2] = @"{";
+            task12[3] = @"    int sum = 0; //O(1)";
+            task12[4] = @"    for (int i = 0; i < inputArray.Length; i++) //O(N)";
             task12[5] = @"    {";
             task12[6] = @"        for (int j = 0; j < inputArray.Length; j++) //O(N)";
             task12[7] = @"        {";
@@ -142,7 +138,7 @@ namespace AlgoritmQuests
             task12[23] = @"}";
             task12[24] = @"Ощая сдожность O( f(N)xg(N)x k(N)) = O(N^3) наиболее болшее кол-во операций будет произведенно по правилу 4";
             Console.Clear();
-            for (int i=0; i<task12.Length; i++)
+            for (int i = 0; i < task12.Length; i++)
             {
                 Console.WriteLine(task12[i]);
             }
@@ -196,7 +192,7 @@ namespace AlgoritmQuests
         }
 
         //функция выполнения задания №3 урока 1 часть 2 цикл
-        static void Task1_32() 
+        static void Task1_32()
         {
             //Требуется реализовать расчет числа Фибоначи через цикл. .
             //Пример чисел Фибоначчи:
@@ -323,3 +319,4 @@ namespace AlgoritmQuests
         }
     }
 }
+

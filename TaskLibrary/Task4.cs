@@ -4,17 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlgoritmQuests
+namespace TaskLibrary
 {
-    class Task4 : ILessons
+    public class Task4 : ILessons
     {
         public string NameTask { get; set; }
         public string Description { get; set; }
-        
-
-
-
-
         public void StartTask()
         {
             NameTask = "\nЗадание №1:\n";
@@ -28,7 +23,7 @@ namespace AlgoritmQuests
 
         }
         public void ShowTask()
-        {            
+        {
             Console.WriteLine(NameTask);
             Console.WriteLine(Description);
             Console.WriteLine("Нажмите клавишу Enter для продолжения.");
@@ -43,7 +38,7 @@ namespace AlgoritmQuests
             taskLesson4.GreatTree(sizeTree);
             taskLesson4.GetValueTreeNode();  //создаю дерево
             taskLesson4.ShowTree(); //показываю дерево
-            
+
 
 
             //демонстрация метода поиска DFS
@@ -68,7 +63,7 @@ namespace AlgoritmQuests
             else
                 Console.WriteLine("Значение не найдено.");
             Console.WriteLine("\n");
-            
+
             Console.WriteLine("Удаление найденной записи из дерева c сохранением ветвей слева.");
             taskFind.DeleteLeftNode();
 
@@ -103,10 +98,5 @@ namespace AlgoritmQuests
 
             taskLesson4.ShowChangeTree();
         }
-        
-        
-
-
-        
     }
 }
