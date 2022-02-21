@@ -24,12 +24,20 @@ namespace AlgoritmQuests
                 Console.WriteLine("Для завершения введите exit \n");
                 result = stratTask1.Invoke(obj, new object[0]);
                 input = result.ToString();
+                Console.WriteLine("Урок №7");
+                Console.WriteLine("Динамическое программирование.");
+                Console.WriteLine("Для продолжение нажмите Enter или 7 и Enter \n");
+                if (input != "7" && input != "exit") input = Console.ReadLine();
+                if (input == "7")
+                {
+                    Task7 task7 = new Task7();
+                    task7.StartTask();
+                }
                 if (input != "exit")
                 {
-                    Console.WriteLine("Для продолжение нажмите Enter \n");
-                    Console.ReadLine();
                     Console.Clear();
                 }
+                
             }
             while (input != "exit") ;
 
