@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AlgoritmQuests
+﻿namespace TaskLibrary
 {
     internal interface ILinkedList
     {
-        int Value { get;  set; } //нельзя изменить список снаружи
+        int Value { get; set; } //нельзя изменить список снаружи
         NodeTwoLinks NextNode { get; set; }
         NodeTwoLinks PrevNode { get; set; }
         int GetCount(); // возвращает количество элементов в списке

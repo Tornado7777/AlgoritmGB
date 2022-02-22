@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AlgoritmQuests
+namespace TaskLibrary
 {
-    public class Tree
+    class Tree
     {
         public TreeNode FirstNodeTree { get; set; } //ссылка на первое значение в дереве
         public List<int> ListValueTree { get; set; } //массив значение, для выбора значение поиска
@@ -120,7 +117,7 @@ namespace AlgoritmQuests
 
         }
 
-        
+
         public void GetValueTreeNode()
         {
             TreeNode firstNode = this.FirstNodeTree;
@@ -151,7 +148,7 @@ namespace AlgoritmQuests
                 listLevel.Clear();
                 listLevel.AddRange(listNextLevel);
             }
-            if (this.ListValueTree.Count>0) this.ListValueTree.Clear();
+            if (this.ListValueTree.Count > 0) this.ListValueTree.Clear();
             this.ListValueTree.AddRange(listValue);
         }
 
@@ -365,5 +362,4 @@ namespace AlgoritmQuests
         }
 
     }
-
 }

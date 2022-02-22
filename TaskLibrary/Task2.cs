@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AlgoritmQuests
+
+namespace TaskLibrary
 {
-    class Task2 : ILessons
+    public class Task2 : ILessons
     {
         public string NameTask { get; set; }
-        public string Description  { get; set; }
+        public string Description { get; set; }
 
         //Выполняем только задание 1 - реализация типа двусвязного списка. 
         //И контрольный пример, демонстрирующий использование методов.
@@ -92,17 +89,17 @@ namespace AlgoritmQuests
                 if (findNodeNext == null) Console.WriteLine(findNodePrev.Value + "\t" + findNode.Value);
                 else Console.WriteLine(findNodePrev.Value + "\t" + findNode.Value + "\t" + findNodeNext.Value);
             }
-           
+
         }
 
-       
+
         /// <summary>
         /// Перезапись значений массива (нужна доработка, в случае удаления 0 элемента массива)
         /// </summary>
         /// <param name="masNode"></param>
         /// <param name="countMasNode"></param>
         /// <returns></returns>
-        private static NodeTwoLinks[] overWritingMassiv(NodeTwoLinks [] masNode,int countMasNode)
+        private static NodeTwoLinks[] overWritingMassiv(NodeTwoLinks[] masNode, int countMasNode)
         {
             var node = masNode[0];
             while (node.PrevNode != null)  //перехожу к 0 записи
@@ -115,17 +112,17 @@ namespace AlgoritmQuests
             masNode[0].ShowNum();
             Console.WriteLine("Список значений массива");
             Console.Write(masNode[i].Value + "\t");
-            while (node.NextNode != null) 
+            while (node.NextNode != null)
             {
                 node = node.NextNode;
                 i++;
                 masNode[i] = node;
                 Console.Write(masNode[i].Value + "\t");
             }
-            if (i<masNode.Length-1)
+            if (i < masNode.Length - 1)
             {
                 i++;
-                while ( i<masNode.Length-1)
+                while (i < masNode.Length - 1)
                 {
                     masNode[i].Value = -1;
                     masNode[i].NextNode = null;
