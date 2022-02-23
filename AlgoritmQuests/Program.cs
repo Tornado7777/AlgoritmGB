@@ -22,11 +22,12 @@ namespace AlgoritmQuests
             do
             {
                 Console.WriteLine("Для завершения введите exit \n");
-                result = stratTask1.Invoke(obj, new object[0]);
-                input = result.ToString();
+                result = stratTask1.Invoke(obj, new object[1] { 0 });
+                bool successChange = int.TryParse(input, out int N);
+                if (successChange & (N > 0) && N < 7) result = stratTask1.Invoke(obj, new object[1] { N });
                 Console.WriteLine("Урок №7");
-                Console.WriteLine("Динамическое программирование.");
-                Console.WriteLine("Для продолжение нажмите Enter или 7 и Enter \n");
+                Console.WriteLine("Динамическое программирование.\n");
+                Console.WriteLine("Для продолжение введите номер урока и нажмите Enter \n");
                 if (input != "7" && input != "exit") input = Console.ReadLine();
                 if (input == "7")
                 {

@@ -1,104 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AlgoritmQuests
 {
     public class Chess8Queen
     {
-        internal int[] Board { get; private set; } // массив для доски 8х8 0-разрешенное положение, 1- ферзь (королева), 2 - запрещенное положение
-        internal Chess8Queen()
+        public class Board8x8
         {
-            Board = new int[64];
-        }
-
-        private class Queen
-        {
-            internal int Position { get; set; }
-            internal int[] VariantNewQueen { get; set; }
-            internal Queen(int position)
+            public int[] Board { get; set; } // массив для доски 8х8 0-разрешенное положение, 1- ферзь (королева), 2 - запрещенное положение
+            public int NumberQueens { get; set; }
+            public Board8x8()
             {
-                Position = position;
-                /*создаю массив с возможными положениями следующих ферзей, 
-                 * номерация массива относительно позиции показана ниже
-                 *  *0*1*  значения относительно     * -17 * -15 *
-                 *  7***2  текущей позиции          -10 *  *  * -6
-                 *  **Ф**   ферзя                   *   *  Ф  *  *
-                 *  6***3                           +6  *  *  * +10
-                 *  *5*4*                            * +15 * +17 *
-                 */
-                VariantNewQueen = new int[8] { position - 17, position - 15, position - 6, position + 10, position + 17, position + 15, position + 6, position - 10 };
-                //рассматриваю граничные условия, зануляю соответствующие значения
-                //по горизонтали
-                if (position < 16) //если позиция находится на 2 ряду по горизонтали
-                {
-                    VariantNewQueen[0] = 0;
-                    VariantNewQueen[1] = 0;
-                }
-                else
-                {
-                    if (position >= 48) //на 7 ряду по горизонтали
-                    {
-                        VariantNewQueen[5] = 0;
-                        VariantNewQueen[4] = 0;
-                    }
-                    if (position >= 56) //на 8 ряду по горизонтали
-                    {
-                        VariantNewQueen[3] = 0;
-                        VariantNewQueen[6] = 0;
-                    }
-                }
-                if (position < 8) //если позиция находится на 1 ряду по горизонтали
-                {
-                    VariantNewQueen[2] = 0;
-                    VariantNewQueen[7] = 0;
-                }
-                // по вертикали
-                if ((position % 8) < 2 || position < 2) //2 ряд по вертикали
-                {
-                    VariantNewQueen[0] = 0;
-                    VariantNewQueen[5] = 0;
-                }
-                else
-                {
-                    if ((position % 8) > 5 || position > 5) //7 ряд по вертикали
-                    {
-                        VariantNewQueen[2] = 0;
-                        VariantNewQueen[3] = 0;
-                    }
-                    if ((position % 8) > 6 || position > 6) //8 ряд по вертикали
-                    {
-                        VariantNewQueen[1] = 0;
-                        VariantNewQueen[4] = 0;
-                    }
-                }
-                if ((position % 8) == 0 || position == 0) //1 ряд по вертикали
-                {
-                    VariantNewQueen[6] = 0;
-                    VariantNewQueen[7] = 0;
-                }
+                Board = new int[64];
+                NumberQueens = 0;
             }
         }
+
         /// <summary>
         /// Отвечает за реализацию логики задачи
         /// </summary>
         internal void Logic8Queen()
         {
-            ShowChessBoard();
+            Board8x8 board8X8 = new Board8x8();
             int rnd = new Random().Next(0, 63);
-            Queen currentQueen = new Queen(rnd); //создаю первого Ферзя(Королеву)
-            Board[rnd] = 1; //размешаю первого Ферзя(Королеву)
-            NotAllowedPosition(rnd); //размечаю на доске запрещенные позиции
-            ShowChessBoard();
-            NextQueens(currentQueen.VariantNewQueen);
+            board8X8.NumberQueens++;
+            board8X8.Board[rnd] = 1; //размешаю первого Ферзя(Королеву)
+            board8X8.Board = NotAllowedPosition(rnd, board8X8.Board); //размечаю на доске запрещенные позиции
+            ShowChessBoard(board8X8.Board);
+            NextQueens(board8X8.Board);
 
         }
         /// <summary>
         /// метод отбражения шахматной доски
         /// </summary>
-        private void ShowChessBoard()
+        private void ShowChessBoard(int[] board8X8)
         {
             Console.Clear();
             Console.WriteLine("Обозначения: пусто-разрешенное положение, х - запрещенное, Ф - ферзь(королева).\n");
@@ -112,10 +47,10 @@ namespace AlgoritmQuests
                 for (int j = 0; j < 8; j++)
                 {
                     Console.Write(" ");
-                    if (Board[j + i * 8] == 1) Console.Write("Ф");
+                    if (board8X8[j + i * 8] == 1) Console.Write("Ф");
                     else
                     {
-                        if (Board[j + i * 8] == 2) Console.Write("x"); else Console.Write(" ");
+                        if (board8X8[j + i * 8] == 2) Console.Write("x"); else Console.Write(" ");
                     }
                     Console.Write(" ");
                     Console.Write("║");
@@ -135,14 +70,30 @@ namespace AlgoritmQuests
                 }
 
             }
+            NumberQueen(board8X8, true);
             Console.WriteLine("Нажмите Enter, чтобы продолжить.");
             Console.ReadLine();
+        }
+
+        private int NumberQueen(int [] board8X8, bool visible = false)
+        {
+            int numberQueens = 0;
+            for (int i = 0; i < board8X8.Length; i++) if (board8X8[i] == 1) numberQueens++;
+            if (visible)
+            {
+                Console.WriteLine("Количество ферзей на доске = " + numberQueens);
+                if (numberQueens == 8)
+                {
+                    Console.WriteLine("Найден вариант решения для данного первого положения Ферзя");
+                }
+            }
+            return numberQueens;
         }
 
         /// <summary>
         /// Метод обозначающий запрещенные позиции нового Ферзя
         /// </summary>
-        private void NotAllowedPosition(int position)
+        private int[] NotAllowedPosition(int position, int[] board)
         {
             //по горизонтали
             //нахожу позицию в горизонтальном ряду
@@ -154,7 +105,7 @@ namespace AlgoritmQuests
             {
                 if (i != position)
                 {
-                    if (Board[i] != 1) Board[i] = 2; else Console.WriteLine("Недопустимость позиции");
+                    if (board[i] != 1) board[i] = 2; else Console.WriteLine("Недопустимость позиции");
                 }
             }
             //по вертикали
@@ -163,7 +114,7 @@ namespace AlgoritmQuests
             {
                 if ((positionX + 8 * i) != position & ((positionX + 8 * i) < 64))
                 {
-                    if (Board[positionX + 8 * i] != 1) Board[positionX + 8 * i] = 2; else Console.WriteLine("Недопустимость позиции");
+                    if (board[positionX + 8 * i] != 1) board[positionX + 8 * i] = 2; else Console.WriteLine("Недопустимость позиции");
                 }
             }
             //по диагоналям
@@ -172,12 +123,12 @@ namespace AlgoritmQuests
             while (currentPoint - 9 >= 0 && (currentPoint % 8) > 0) //рисую до границ
             {
                 currentPoint = currentPoint - 9;
-                if (Board[currentPoint] == 1)
+                if (board[currentPoint] == 1)
                 {
                     Console.WriteLine("Недопустимость позиции");
                     break;
                 }
-                Board[currentPoint] = 2;
+                board[currentPoint] = 2;
             }
 
             //рисую диагональ от позиции вверх и направо
@@ -185,12 +136,12 @@ namespace AlgoritmQuests
             while ((currentPoint % 8) < 7 && currentPoint - 7 >= 0)
             {
                 currentPoint = currentPoint - 7;
-                if (Board[currentPoint] == 1)
+                if (board[currentPoint] == 1)
                 {
                     Console.WriteLine("Недопустимость позиции");
                     break;
                 }
-                Board[currentPoint] = 2;
+                board[currentPoint] = 2;
                 if (currentPoint % 8 == 7) break;
             }
             //рисую диагональ от позиции вниз и направо
@@ -198,12 +149,12 @@ namespace AlgoritmQuests
             while ((currentPoint % 8) < 7 && currentPoint + 9 < 64)
             {
                 currentPoint = currentPoint + 9;
-                if (Board[currentPoint] == 1)
+                if (board[currentPoint] == 1)
                 {
                     Console.WriteLine("Недопустимость позиции");
                     break;
                 }
-                Board[currentPoint] = 2;
+                board[currentPoint] = 2;
                 if (currentPoint % 8 == 7) break;
             }
             //рисую диагональ от позиции вниз и налево
@@ -211,35 +162,48 @@ namespace AlgoritmQuests
             while ((currentPoint % 8) > 0 && currentPoint + 7 < 64)
             {
                 currentPoint = currentPoint + 7;
-                if (Board[currentPoint] == 1)
+                if (board[currentPoint] == 1)
                 {
                     Console.WriteLine("Недопустимость позиции");
                     break;
                 }
-                Board[currentPoint] = 2;
+                board[currentPoint] = 2;
                 if (currentPoint % 8 == 0) break;
             }
+            return board;
         }
 
-        private void NextQueens(int [] variantNewQueen)
+        private void NextQueens(int[] board8x8)
         {
-            List<int> variantQueens = new List<int>(0);
-            int rnd = 0;
+            List<int> variantNewQueen = new List<int>();
+
+            int numbersQueens = NumberQueen(board8x8);
+
             //отсеиваю список разрешенных вариантов для следующего Ферзя
-            for (int i=0; i< variantNewQueen.Length; i++)
+            for (int i = 0; i < board8x8.Length; i++)
             {
-                if (variantNewQueen[i] != 0 && Board[variantNewQueen[i]] != 1 && Board[variantNewQueen[i]] != 2) variantQueens.Add(variantNewQueen[i]);
+                if (board8x8[i] == 0) variantNewQueen.Add(i);
             }
-            //выбираю рандомно из списка позицию может лучше просто перебрать доступные позиции
-            if (variantQueens.Count > 1)
+            
+            if (variantNewQueen != null && variantNewQueen.Count > 0 && numbersQueens < 8)
             {
-                rnd = new Random().Next(0, variantQueens.Count - 1);
+                for (int i = 0; i < variantNewQueen.Count; i++)
+                {
+                    int[] board = new int[board8x8.Length];
+                    board8x8.CopyTo(board, 0);
+                    board[variantNewQueen[i]] = 1; // обозначаю позицию ферзя на доске
+                    numbersQueens = NumberQueen(board, true);
+                    board = NotAllowedPosition(variantNewQueen[i], board); //размечаю на доске запрещенные позиции для нового Ферзя
+                    if (numbersQueens == 8 || variantNewQueen.Count == 0)
+                    {
+                        ShowChessBoard(board);
+                        Environment.Exit(0);
+                    }
+                    else
+                        NextQueens(board);
+                }
             }
-            Queen currentQueen = new Queen(variantQueens[rnd]);
-            Board[currentQueen.Position] = 1;
-            NotAllowedPosition(currentQueen.Position); //размечаю на доске запрещенные позиции
-            ShowChessBoard();
-            //нужно сделать рекурсию с перебором досупных вариантов и их проверкой
         }
     }
 }
+//для реализации перебора, нужно реализовать список решений, и каждое новое решение сравнивать с предыдущими
